@@ -8,4 +8,4 @@ This repository contains solutions to various problems using the queue data stru
    - **Description**: Calculate the nth number in the Fibonacci sequence using a queue.
    - **Example Input**: 5
    - **Example Output**: 5
-   - **Source Code**: `queue_10.c`
+   - **Source Code**: 'queue_10.c'
