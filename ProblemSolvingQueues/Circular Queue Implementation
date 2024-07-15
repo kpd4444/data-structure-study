@@ -1,0 +1,110 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+#define SIZE 100
+
+typedef char element;
+
+typedef struct QueueType {
+    element elem[SIZE];
+    int front, rear;
+    
+}QueueType;
+
+void initQueue(QueueType* Q)
+{
+    Q->front = Q->rear = 0; // 0부터 시작
+}
+
+int isEmpty(QueueType* Q)
+{
+    return Q->front == Q->rear;
+}
+
+int isFull(QueueType* Q)
+{
+    return (Q->rear + 1) % SIZE == Q->front; // 포화상태
+}
+
+void enqueue(QueueType* Q, char e)
+{
+    if (isFull(Q))
+    {
+        printf("FULL\n");
+        return;
+    }
+    Q->rear = (Q->rear + 1) % SIZE;
+    Q->elem[Q->rear] = e;
+}
+
+void print(QueueType* Q)
+{
+    printf("front pos : %d, rear pos : %d\n", Q->front, Q->rear);
+
+    if (!isEmpty(Q))
+    {
+        int i = Q->front;
+        do
+        {
+            i = (i + 1) % SIZE;
+            printf("[%c] ", Q->elem[i]);
+            if (i == Q->rear)
+                break;
+        } while (i != Q->front);
+
+    }
+    printf("\n");
+}
+
+element dequeue(QueueType* Q)
+{
+    if (isEmpty(Q))
+    {
+        printf("Empty\n");
+        return 0;
+    }
+    Q->front = (Q->front + 1) % SIZE;
+    return Q->elem[Q->front];
+}
+
+element peek(QueueType* Q)
+{
+    if (isEmpty(Q))
+    {
+        printf("Empty\n");
+        return 0;
+    }
+    return Q->elem[(Q->front + 1) % SIZE];
+}
+
+int main()
+{
+    QueueType Q;
+    initQueue(&Q);
+    srand(time(NULL));
+
+    for (int i = 0; i < 7; i++)
+        enqueue(&Q, rand() % 26 + 65);
+
+    print(&Q);
+
+    for (int i = 0; i < 3; i++)
+        printf("[%c] ", dequeue(&Q)); // dequeue를 한다고 배열안의 값이 삭제되는것이아닌 넘어가는것
+    printf("\n\n");
+    print(&Q);
+
+    printf("[%c] \n\n", peek(&Q));
+
+    for (int i = 0; i < 5; i++)
+        enqueue(&Q, rand() % 26 + 65);
+
+    print(&Q);
+
+    for (int i = 0; i < 3; i++)
+        printf("[%c] ", dequeue(&Q));
+    printf("\n\n");
+    print(&Q);
+
+    return 0;
+}
