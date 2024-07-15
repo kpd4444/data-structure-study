@@ -3,10 +3,12 @@
 
 #define N 100
 
+typedef char element;
+
 typedef struct StackType 
 {
 	int top;
-	char stack[N];
+	element stack[N];
 
 }StackType;
 
@@ -31,7 +33,7 @@ void push(StackType*S,char c) {
 	}
 }
 
-char peek(StackType* S) {
+element peek(StackType* S) {
 	if (isEmpty(S)) {
 		printf("Empty!\n");
 		return -1;
@@ -40,7 +42,7 @@ char peek(StackType* S) {
 	return c;
 }
 
-char pop(StackType* S) {
+element pop(StackType* S) {
 	if (isEmpty(S)) {
 		printf("Empty!\n");
 		return -1;
