@@ -1,0 +1,78 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+#define N 100
+
+typedef struct StackType 
+{
+	int top;
+	char stack[N];
+
+}StackType;
+
+void init(StackType *S) {
+	S->top = - 1;
+}
+
+int isFull(StackType* S) {
+	return S->top == N - 1;
+}
+
+int isEmpty(StackType* S) {
+	return S->top == -1;
+}
+
+void push(StackType*S,char c) {
+	if (isFull(S))
+		printf("Overflow!\n");
+	else {
+		S->top++;
+		S->stack[S->top] = c;
+	}
+}
+
+char peek(StackType* S) {
+	if (isEmpty(S)) {
+		printf("Empty!\n");
+		return -1;
+	}
+	char c = S->stack[S->top];
+	return c;
+}
+
+char pop(StackType* S) {
+	if (isEmpty(S)) {
+		printf("Empty!\n");
+		return -1;
+	}
+	char c = S->stack[S->top];
+	S->top--;
+	return c;
+}
+
+void print(StackType* S) {
+	for (int i = 0; i <= S->top; i++) {
+		printf("%c",S->stack[i]);
+
+	}
+	printf("\n");
+}
+
+
+
+int main() {
+	StackType S;
+	init(&S);
+
+	push(&S, 'c');
+	push(&S, 'a');
+	push(&S, 't');
+	push(&S, 's');
+
+
+	print(&S);
+	getchar();
+
+	printf("After pop : %c\n", peek(&S));
+	return 0;
+}
